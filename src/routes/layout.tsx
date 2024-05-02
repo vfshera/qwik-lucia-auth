@@ -1,5 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import type { DocumentHead, RequestHandler } from "@builder.io/qwik-city";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -13,5 +13,17 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 export default component$(() => {
-  return <Slot />;
+  return (
+    <div class="flex flex-col items-center gap-10 p-10">
+      <h1 class="text-3xl font-semibold">Qwik + Lucia Auth</h1>
+
+      <main>
+        <Slot />
+      </main>
+    </div>
+  );
+});
+
+export const head: DocumentHead = ({ head }) => ({
+  title: head.title || "Welcome to Qwik",
 });
