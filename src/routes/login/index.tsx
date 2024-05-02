@@ -12,7 +12,7 @@ export default component$(() => {
     <div>
       <button
         type="button"
-        onClick$={() => signIn.submit({ providerId: "github" })}
+        onClick$={() => signIn.submit({})}
         class="rounded border-4 border-gray-700 bg-slate-100 px-5 py-2 shadow"
       >
         Login With GitHub

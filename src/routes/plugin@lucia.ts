@@ -71,11 +71,7 @@ export const useAuthSession = routeLoader$((req) => {
 });
 
 export const useAuthSignin = globalAction$(
-  async (data, { redirect, fail, cookie }) => {
-    if (data.providerId !== "github") {
-      return fail(400, { message: "Invalid provider" });
-    }
-
+  async (data, { redirect, cookie }) => {
     const state = generateState();
 
     const url = await github.createAuthorizationURL(state);
@@ -91,7 +87,6 @@ export const useAuthSignin = globalAction$(
     throw redirect(302, url.toString());
   },
   zod$({
-    providerId: z.string().optional(),
     callbackUrl: z.string().optional(),
   }),
 );
