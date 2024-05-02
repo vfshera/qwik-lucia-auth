@@ -11,21 +11,15 @@ type GitHubUser = {
 };
 export const onGet: RequestHandler = async ({
   cookie,
-  params,
-  pathname,
   query,
   error,
   redirect,
 }) => {
-  const providerId = params.providerId;
-
   const code = query.get("code");
 
   const state = query.get("state");
 
   const storedState = cookie.get("github_oauth_state")?.value;
-
-  console.log({ providerId, pathname, code, state, storedState });
 
   if (!code || !state || !storedState || state !== storedState) {
     throw error(400, "");
@@ -65,8 +59,6 @@ export const onGet: RequestHandler = async ({
       githubId: githubUser.id,
       username: githubUser.login,
     });
-
-    console.log({ newUser, userId });
 
     const session = await lucia.createSession(newUser.id, {});
 
