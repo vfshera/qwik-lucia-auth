@@ -24,12 +24,14 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "drizzle-kit push:pg",
+    "db:studio": "drizzle-kit studio --host 127.0.0.1"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.5.2",
     "@builder.io/qwik-city": "^1.5.2",
-    "@types/better-sqlite3": "^7.6.10",
     "@types/eslint": "^8.56.6",
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
@@ -50,9 +52,9 @@
   "dependencies": {
     "@lucia-auth/adapter-drizzle": "^1.0.7",
     "arctic": "^1.7.0",
-    "better-sqlite3": "^9.6.0",
     "drizzle-orm": "^0.30.9",
     "lucia": "^3.2.0",
-    "oslo": "^1.2.0"
+    "oslo": "^1.2.0",
+    "postgres": "^3.4.4"
   }
 }
