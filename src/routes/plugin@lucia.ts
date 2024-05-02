@@ -6,10 +6,29 @@ import {
   type RequestHandler,
 } from "@builder.io/qwik-city";
 import { generateState } from "arctic";
-import { type Session, type User } from "lucia";
+import { verifyRequestOrigin, type Session, type User } from "lucia";
 import { github, lucia } from "~/auth";
 
-export const onRequest: RequestHandler = async ({ cookie, sharedMap }) => {
+export const onRequest: RequestHandler = async ({
+  cookie,
+  sharedMap,
+  request,
+  error,
+}) => {
+  if (request.method !== "GET") {
+    const originHeader = request.headers.get("Origin");
+
+    const hostHeader = request.headers.get("Host");
+
+    if (
+      !originHeader ||
+      !hostHeader ||
+      !verifyRequestOrigin(originHeader, [hostHeader])
+    ) {
+      throw error(403, "");
+    }
+  }
+
   const sessionId = cookie.get(lucia.sessionCookieName)?.value;
 
   if (!sessionId) {
